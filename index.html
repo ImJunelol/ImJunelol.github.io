@@ -315,7 +315,16 @@
     
     <!--Reveal Itself-->
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
-    <script">
+    <script>
+    import Reveal         from "https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.esm.js";
+  import RevealHighlight from "https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.esm.js";
+  import RevealNotes     from "https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.esm.js";
+  import RevealMarkdown  from "https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.esm.js";
+  import RevealZoom      from "https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/zoom/zoom.esm.js";
+  import RevealSearch    from "https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/search/search.esm.js";
+  import RevealMath      from "https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/math/math.esm.js";
+
+  window.Reveal = Reveal;   // keeps the global for your other scripts
         Reveal.initialize({
     //view : 'scroll',
     jumpToSlide : true, 
