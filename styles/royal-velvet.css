@@ -1,0 +1,387 @@
+/*───────────────────────────────────────────────────────
+Royal Velvet for reveal.js
+Port of "Royal Velvet" v0.11.8 by @caro401
+https://github.com/caro401/royal-velvet
+MIT License - the original copyright notice and permission
+notice apply to this derived work.
+
+Usage: load AFTER reveal.css, and INSTEAD of a built-in theme
+(do not load theme/black.css etc., nor a highlight.js theme).
+
+  <link rel="stylesheet" href="reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="royal-velvet.css">
+
+Light mode: add class "theme-light" to <html>.
+────────────────────────────────────────────────────── */
+
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap");
+
+/* ---------- Palette: dark (default) ---------- */
+:root,
+:root.theme-dark {
+  --layer-hue-sat: 240, 14%;   /* layer-2 (15%) = #21212c */
+  --layer-0: hsl(var(--layer-hue-sat), 9%);
+  --layer-1: hsl(var(--layer-hue-sat), 13%);
+  --layer-2: hsl(var(--layer-hue-sat), 15%);
+  --layer-3: hsl(var(--layer-hue-sat), 19%);
+  --layer-4: hsl(var(--layer-hue-sat), 30%);
+  --on-layer-tuple: 60, 30%, 96%;
+
+  --red-hue: 10;
+  --orange-hue: 35;
+  --yellow-hue: 60;
+  --green-hue: 115;
+  --blue-hue: 170;
+  --purple-hue: 250;
+  --purple-pink-hue: 285;
+  --pink-hue: 330;
+
+  --primary-sat: 100%;
+  --secondary-sat: 100%;
+  --primary-lit: 75.1%;
+  --secondary-lit: 90%;
+}
+
+/* ---------- Palette: light ---------- */
+:root.theme-light {
+  --layer-0: hsl(var(--layer-hue-sat), 89%);
+  --layer-1: hsl(var(--layer-hue-sat), 99%);
+  --layer-2: hsl(var(--layer-hue-sat), 96%);
+  --layer-3: hsl(var(--layer-hue-sat), 83%);
+  --layer-4: hsl(var(--layer-hue-sat), 80%);
+  --on-layer-tuple: 234, 14%, 15%;
+
+  --red-hue: 0;
+  --orange-hue: 30;
+  --yellow-hue: 40;
+  --green-hue: 105;
+  --blue-hue: 200;
+  --purple-hue: 300;
+  --purple-pink-hue: 310;
+
+  --primary-lit: 43%;
+  --secondary-sat: 80%;
+  --secondary-lit: 50%;
+  --bg: var(--layer-2);                  /* light theme background */
+}
+
+/* ---------- Derived colours ---------- */
+:root {
+  --on-layer: hsl(var(--on-layer-tuple));
+  --on-layer-600: hsla(var(--on-layer-tuple), 0.6);
+  --on-layer-400: hsla(var(--on-layer-tuple), 0.4);
+
+  --red: hsl(var(--red-hue), var(--primary-sat), var(--primary-lit));
+  --orange: hsl(var(--orange-hue), var(--primary-sat), var(--primary-lit));
+  --orange-secondary: hsl(var(--orange-hue), var(--secondary-sat), var(--secondary-lit));
+  --yellow: hsl(var(--yellow-hue), var(--primary-sat), var(--primary-lit));
+  --green: hsl(var(--green-hue), var(--primary-sat), var(--primary-lit));
+  --green-secondary: hsl(var(--green-hue), var(--secondary-sat), var(--secondary-lit));
+  --blue: hsl(var(--blue-hue), var(--primary-sat), var(--primary-lit));
+  --purple: hsl(var(--purple-hue), var(--primary-sat), var(--primary-lit));
+  --purple-200: hsla(var(--purple-hue), var(--primary-sat), var(--primary-lit), 0.2);
+  --purple-pink: hsl(var(--purple-pink-hue), var(--primary-sat), var(--primary-lit));
+  --pink: hsl(var(--pink-hue), var(--primary-sat), var(--primary-lit));
+  --pink-secondary: hsl(var(--pink-hue), var(--secondary-sat), var(--secondary-lit));
+  --pink-100: hsla(var(--pink-hue), var(--primary-sat), var(--primary-lit), 0.1);
+
+  --gradient-degree: 135deg;
+
+  /* ---------- reveal.js variables ---------- */
+  --bg: #21212c;                         /* slide background (dark) */
+  --r-background-color: var(--bg);
+  --r-main-font: "Fira Sans", sans-serif;
+  --r-main-font-size: 20px;
+  --r-main-color: var(--on-layer);
+  --r-block-margin: 18px;
+  --r-heading-margin: 0 0 24px 0;
+  --r-heading-font: "Fira Sans", sans-serif;
+  --r-heading-color: var(--pink);
+  --r-heading-line-height: 1.25;
+  --r-heading-letter-spacing: normal;
+  --r-heading-text-transform: none;
+  --r-heading-text-shadow: none;
+  --r-heading-font-weight: 700;
+  --r-heading1-size: 2.4em;
+  --r-heading2-size: 1.8em;
+  --r-heading3-size: 1.4em;
+  --r-heading4-size: 1.1em;
+  --r-code-font: "Fira Code", monospace;
+  --r-link-color: var(--orange);
+  --r-link-color-dark: var(--orange-secondary);
+  --r-link-color-hover: var(--orange-secondary);
+  --r-selection-background-color: var(--purple-200);
+  --r-selection-color: var(--on-layer);
+  --r-overlay-element-bg-color: 0, 0, 0;
+  --r-overlay-element-fg-color: 255, 255, 255;
+}
+
+/* ---------- Base ---------- */
+/* reveal.css hardcodes `.reveal-viewport { background-color: #fff }`; in full-page
+   mode that class sits on <body>, so a plain `body` rule loses. Target all of them. */
+html,
+body,
+.reveal-viewport {
+  background-color: var(--r-background-color);
+  color: var(--r-main-color);
+}
+
+.reveal {
+  font-family: var(--r-main-font);
+  font-size: var(--r-main-font-size);
+  font-weight: 400;
+  color: var(--r-main-color);
+}
+
+/* Obsidian-style left-aligned content; add class="center" to a
+   <section> (or use text-align on it) for centred slides. */
+.reveal .slides {
+  text-align: left;
+}
+.reveal .slides section.center {
+  text-align: center;
+}
+
+.reveal ::selection {
+  color: var(--r-selection-color);
+  background: var(--r-selection-background-color);
+}
+
+/* ---------- Headings: gradient text ---------- */
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  width: fit-content;
+  max-width: 100%;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.reveal section.center h1,
+.reveal section.center h2,
+.reveal section.center h3,
+.reveal section.center h4,
+.reveal section.center h5,
+.reveal section.center h6 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reveal h1 { background-image: linear-gradient(var(--gradient-degree), var(--pink) 0, var(--orange) 100%); }
+.reveal h2 { background-image: linear-gradient(var(--gradient-degree), var(--orange) 0, var(--yellow) 100%); }
+.reveal h3 { background-image: linear-gradient(var(--gradient-degree), var(--yellow) 0, var(--green) 100%); }
+.reveal h4 { background-image: linear-gradient(var(--gradient-degree), var(--green) 0, var(--blue) 100%); }
+.reveal h5 { background-image: linear-gradient(var(--gradient-degree), var(--blue) 0, var(--purple) 100%); }
+.reveal h6 { background-image: linear-gradient(var(--gradient-degree), var(--purple) 0, var(--pink) 100%); }
+
+/* Optional: rainbow headings, e.g. <h1 class="rainbow"> */
+.reveal .rainbow {
+  background-image: linear-gradient(
+    var(--gradient-degree),
+    var(--pink) 0, var(--orange) 16.6%, var(--yellow) 33.3%,
+    var(--green) 50%, var(--blue) 66.6%, var(--purple) 83.3%, var(--pink) 100%
+  );
+}
+
+/* ---------- Emphasis ---------- */
+.reveal strong, .reveal b { color: var(--pink); font-weight: 700; }
+.reveal em, .reveal i { color: var(--blue); }
+.reveal strong em, .reveal em strong { color: var(--red); }
+.reveal mark { background: none; color: var(--yellow); font-weight: 500; }
+.reveal del, .reveal s { color: var(--on-layer-400); }
+.reveal cite { display: block; text-align: right; color: var(--yellow); font-style: normal; }
+.reveal hr { border: 0; border-top: 2px solid var(--orange); }
+.reveal img, .reveal video {
+  border-radius: 8px;
+  border: 0;
+  box-shadow: none;
+  margin: 18px auto;
+}
+
+/* ---------- Links ---------- */
+.reveal a { color: var(--orange); text-decoration: none; }
+.reveal a:hover { color: var(--orange-secondary); text-shadow: none; border: 0; }
+.reveal a[href^="http"] { color: var(--green); }
+.reveal a[href^="http"]:hover { color: var(--green-secondary); }
+
+/* ---------- Lists: marker colour per nesting level ---------- */
+.reveal ul,
+.reveal ol { margin-left: 1em; }
+.reveal ul li::marker, .reveal ol li::marker { color: var(--pink); }
+.reveal ul ul li::marker, .reveal ol ol li::marker { color: var(--orange); }
+.reveal ul ul ul li::marker, .reveal ol ol ol li::marker { color: var(--yellow); }
+.reveal ul ul ul ul li::marker, .reveal ol ol ol ol li::marker { color: var(--green); }
+.reveal ul ul ul ul ul li::marker, .reveal ol ol ol ol ol li::marker { color: var(--blue); }
+.reveal li { margin: 0.2em 0; }
+
+/* ---------- Blockquote ---------- */
+.reveal blockquote {
+  width: 90%;
+  margin: 24px auto;
+  padding: 10px 24px;
+  background: var(--layer-1);
+  border-left: 6px solid var(--red);
+  border-radius: 4px;
+  box-shadow: none;
+  font-style: normal;
+}
+
+/* ---------- Code ---------- */
+.reveal code {
+  font-family: var(--r-code-font);
+  color: var(--purple-pink);
+}
+.reveal :not(pre) > code {
+  background: var(--layer-1);
+  padding: 0.05em 0.35em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.reveal h1 code, .reveal h2 code, .reveal h3 code,
+.reveal h4 code, .reveal h5 code, .reveal h6 code { background: none; }
+
+.reveal pre {
+  position: relative;   /* required: line-number steps are absolutely positioned copies stacked inside <pre> */
+  width: 100%;
+  margin: 18px 0;
+  background: var(--layer-1);
+  border-radius: 8px;
+  box-shadow: none;
+  font-family: var(--r-code-font);
+  font-size: 0.55em;
+  line-height: 1.4;
+}
+.reveal pre code {
+  display: block;
+  padding: 0.9em 1.2em;
+  max-height: 480px;
+  overflow: auto;
+  background: transparent;
+  color: var(--on-layer-600);
+  word-wrap: normal;
+}
+
+/* highlight.js tokens (reveal's highlight plugin). Do NOT load a hljs theme. */
+.reveal .hljs-keyword,
+.reveal .hljs-selector-tag,
+.reveal .hljs-built_in,
+.reveal .hljs-operator,
+.reveal .hljs-meta { color: var(--pink); }
+.reveal .hljs-title,
+.reveal .hljs-title.function_,
+.reveal .hljs-attr,
+.reveal .hljs-attribute,
+.reveal .hljs-name,
+.reveal .hljs-section,
+.reveal .hljs-variable { color: var(--green); }
+.reveal .hljs-string,
+.reveal .hljs-regexp,
+.reveal .hljs-symbol { color: var(--yellow); }
+.reveal .hljs-number,
+.reveal .hljs-literal,
+.reveal .hljs-params { color: var(--orange); }
+.reveal .hljs-type,
+.reveal .hljs-class .hljs-title,
+.reveal .hljs-title.class_ { color: var(--purple); }
+.reveal .hljs-comment,
+.reveal .hljs-quote { color: var(--on-layer-400); font-style: italic; }
+.reveal .hljs-emphasis { font-style: italic; }
+.reveal .hljs-strong { font-weight: 700; }
+/* line-number highlighting (data-line-numbers) */
+.reveal .hljs-ln-numbers { color: var(--on-layer-400); border-color: var(--layer-3); }
+
+/* ---------- Tables ---------- */
+.reveal table {
+  margin: 24px auto;
+  border-collapse: collapse;
+  border-radius: 4px;
+  outline: 4px solid var(--layer-1);
+  outline-offset: -2px;
+  font-size: 0.8em;
+}
+.reveal table thead {
+  background-image: linear-gradient(var(--gradient-degree), var(--purple) 0, var(--pink) 100%);
+}
+.reveal table th {
+  padding: 0.35em 0.9em;
+  border: none;
+  font-weight: 700;
+  text-align: center;
+  color: var(--layer-2);
+}
+.reveal table td {
+  padding: 0.35em 0.9em;
+  border: none;
+}
+.reveal table tbody tr:nth-child(odd)  { background: var(--layer-1); }
+.reveal table tbody tr:nth-child(even) { background: var(--layer-2); }
+.reveal table th[align="left"],
+.reveal table td[align="left"] { text-align: left; }
+
+/* ---------- Math (KaTeX / MathJax) ---------- */
+.reveal .katex-display,
+.reveal mjx-container[display="true"] {
+  background: var(--layer-1);
+  border-left: 6px solid var(--purple);
+  border-right: 6px solid var(--pink);
+  border-radius: 4px;
+  padding: 0.4em 0;
+}
+
+/* ---------- reveal.js UI ---------- */
+.reveal .controls { color: var(--pink); }
+.reveal .progress { color: var(--pink); background: var(--layer-0); height: 6px; }
+.reveal .progress span {
+  background: linear-gradient(90deg, var(--pink), var(--orange));
+}
+.reveal .slide-number {
+  color: var(--on-layer-600);
+  background: transparent;
+  font-family: var(--r-code-font);
+  font-size: 14px;
+}
+.reveal .fragment.highlight-current-blue.current-fragment { color: var(--blue); }
+.reveal .fragment.highlight-red { color: var(--red); }
+.reveal .fragment.highlight-green { color: var(--green); }
+.reveal .fragment.highlight-blue { color: var(--blue); }
+
+/* ---------- Small helpers ---------- */
+.reveal .two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+.reveal .card {
+  background: var(--layer-1);
+  border-left: 6px solid var(--purple);
+  border-right: 6px solid var(--pink);
+  border-radius: 4px;
+  padding: 0.6em 1em;
+}
+.reveal .muted { color: var(--on-layer-600); }
+
+/* ---------- Motion + PDF export ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal * { animation: none !important; transition: none !important; }
+}
+
+/* Gradient text can drop out in PDF export: fall back to solid colours */
+html.print-pdf .reveal h1,
+html.print-pdf .reveal h2,
+html.print-pdf .reveal h3,
+html.print-pdf .reveal h4,
+html.print-pdf .reveal h5,
+html.print-pdf .reveal h6 {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+html.print-pdf .reveal h1 { color: var(--pink); }
+html.print-pdf .reveal h2 { color: var(--orange); }
+html.print-pdf .reveal h3 { color: var(--yellow); }
+html.print-pdf .reveal h4 { color: var(--green); }
+html.print-pdf .reveal h5 { color: var(--blue); }
+html.print-pdf .reveal h6 { color: var(--purple); }

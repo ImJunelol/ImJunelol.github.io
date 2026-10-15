@@ -1,0 +1,110 @@
+/* ley2466-extra.css · complementa royal-velvet.css (usa sus variables)
+   Modo claro: class="theme-light" en <html> (los colores se recalculan solos).
+   Cargar DESPUÉS de royal-velvet.css y youth-employment.css */
+
+/* Tipografía grande para leer a distancia */
+:root {
+  --r-main-font-size: 36px;
+  --r-heading1-size: 2.2em; --r-heading2-size: 1.5em; --r-heading3-size: 1.2em;
+}
+.reveal .slide-number { font-size: 22px; }
+
+/* Logo SVG (con la misma gradiente del h1). :where() = especificidad 0: si ya lo defines en otro CSS, gana el tuyo */
+:where(.rv-logo, .rv-logo-inline) {
+  background: linear-gradient(var(--gradient-degree), var(--pink) 0, var(--orange) 100%);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+}
+:where(.rv-logo) { position: fixed; top: 22px; left: 26px; width: 56px; height: 56px; z-index: 30; pointer-events: none; transition: opacity .4s; }
+:where(.rv-logo-inline) { display: block; width: 140px; height: 140px; margin: 0 auto .3em; }
+.logo-hidden .rv-logo, .reveal.logo-hidden ~ .rv-logo { opacity: 0; }
+
+/* Utilidades */
+.reveal .hl { color: var(--yellow); }
+.reveal .rl-big {
+  display: block; width: fit-content; margin: 0 auto; font-size: 2.8em; font-weight: 700; line-height: 1;
+  background-image: linear-gradient(var(--gradient-degree), var(--pink) 0, var(--orange) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.rl-tag { display: inline-block; font-size: .65em; color: var(--blue); border: 1px solid currentColor; border-radius: 1em; padding: .1em .8em; }
+
+/* Tarjetas */
+.rl-cards { display: flex; gap: 1.2em; justify-content: center; align-items: stretch; }
+.rl-card { flex: 1; border: 2px solid var(--orange); border-radius: .6em; padding: .6em .8em; font-size: .75em;
+  background-image: linear-gradient(145deg, var(--layer-1), transparent); box-shadow: 0 .3em 1em rgba(0,0,0,.25); }
+.rl-card.hot { background: var(--orange); color: var(--layer-0); }
+.reveal .rl-card.hot b { color: inherit; }
+
+/* Barras horizontales (pago) */
+.rl-row { font-size: .7em; text-align: left; margin: .8em 0; }
+.rl-track { position: relative; height: 1.6em; border: 2px solid var(--orange); border-radius: .4em; margin: 1em auto; width: 80%; overflow: hidden; }
+.reveal .rl-track em { position: absolute; right: .6em; top: 0; line-height: 1.6em; font-size: .6em; }
+.rl-bar { height: 1.2em; background: var(--orange); border-radius: .3em; }
+.rl-track .rl-bar { height: 100%; border-radius: 0; }
+.rl-bar.hot { box-shadow: 0 0 .8em var(--orange); }
+.rl-bar.q { background: transparent; border: 2px dashed var(--orange); }
+
+/* Diagrama de decisión */
+.rl-flow { display: flex; flex-direction: column; align-items: center; gap: 1.2em; }
+.rl-node { border: 2px solid var(--orange); border-radius: .6em; padding: .5em 1em; font-size: .75em; background: var(--layer-1); }
+.rl-node.warn { border-color: var(--red); }
+.rl-node small { display: block; font-size: .7em; opacity: .85; }
+.rl-branches { display: flex; gap: 2em; position: relative; }
+.rl-branches::before { content: ""; position: absolute; top: -1.2em; left: 25%; right: 25%; height: 1.2em; border: 2px solid var(--orange); border-bottom: 0; border-radius: .6em .6em 0 0; opacity: .6; }
+
+/* Barras verticales (ANDI) */
+.rl-vbars { position: relative; display: flex; gap: 2.5em; justify-content: center; align-items: flex-end; min-height: 300px; }
+.rl-vb { width: 190px; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; font-size: .75em; }
+.rl-vbar { background: var(--orange); border-radius: .3em .3em 0 0; }
+.rl-badge { position: absolute; top: 0; left: 50%; transform: translateX(-50%); font-size: 1.6em; font-weight: 700; color: var(--layer-0); background: var(--yellow); border-radius: 1em; padding: 0 .6em; }
+
+/* Rango 3%-15% */
+.rl-rtrack { position: relative; height: 1.1em; width: 70%; margin: 2.2em auto; background: var(--layer-3); border-radius: 1em; }
+.rl-rtrack i { position: absolute; top: 0; bottom: 0; background: var(--orange); border-radius: 1em; }
+.reveal .rl-dot-lbl { position: absolute; top: -1.8em; transform: translateX(-50%); font-size: .65em; white-space: nowrap; }
+
+/* Iceberg y texto alternante */
+.rl-iceberg { width: 40%; margin: .6em auto; font-size: .65em; }
+.rl-iceberg hr { border: 0; border-top: 2px dashed var(--orange); margin: .6em 0; }
+.rl-iceberg span:last-child { opacity: .6; }
+.rl-swap { display: grid; }
+.rl-swap > p { grid-area: 1 / 1; margin: 0; align-self: center; }
+
+/* Puerta: adentro / afuera */
+.rl-scene { display: flex; align-items: center; justify-content: center; gap: 1em; min-height: 180px; }
+.rl-inside { display: flex; flex-wrap: wrap; gap: .5em; width: 170px; padding: .6em; border: 2px solid var(--orange); border-radius: .6em; }
+.rl-inside i { width: 26px; height: 26px; border-radius: 50%; background: var(--orange); }
+.rl-inside.up i { width: 34px; height: 34px; box-shadow: 0 0 .6em var(--orange); }
+.rl-gate { width: 8px; height: 150px; background: var(--red); border-radius: 4px; }
+.rl-queue { display: flex; flex-wrap: wrap; gap: .5em; width: 260px; }
+.rl-queue i { width: 26px; height: 26px; border-radius: 50%; background: var(--on-layer-400); animation: rl-bob 2s ease-in-out infinite; }
+.rl-queue i:nth-child(even) { animation-delay: .6s; }
+
+/* Tesis (tamaños propios para frases largas) */
+.reveal h2[data-id="tesis"] { font-size: .95em; line-height: 1.2; }
+.reveal h2.rl-small { font-size: .55em; opacity: .7; }
+
+/* Juventud y empleo */
+.yt-bar { display: flex; height: 90px; width: 100%; border-radius: .4em; overflow: hidden; margin: .5em 0; }
+.yt-bar i { display: block; height: 100%; transition: opacity .4s; }
+.yt-bar .f { background: var(--blue); } .yt-bar .i { background: var(--yellow); } .yt-bar .u { background: var(--red); }
+.yt-bar .dim { opacity: .2; }
+.yt-bar.sm { height: 60px; }
+.yt-lbl { font-size: .65em; color: var(--on-layer-600); text-align: left; margin-top: .6em; }
+.yt-leg { display: flex; justify-content: space-between; margin-top: .4em; }
+.yt-leg div { text-align: center; }
+.reveal .yt-leg b, .reveal .yt-big b { display: block; font-size: 1.1em; line-height: 1.05; }
+.yt-leg span, .yt-big span { font-size: .65em; }
+.yt-big { margin-top: .3em; }
+.reveal .yt-big b { font-size: 2.4em; }
+.reveal .c-f { color: var(--blue); } .reveal .c-i { color: var(--yellow); } .reveal .c-u { color: var(--red); }
+.yt-foot { font-size: .55em; color: var(--on-layer-600); margin-top: .5em; }
+
+/* Animaciones */
+@keyframes rl-pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--orange) 55%, transparent); } 50% { box-shadow: 0 0 1em .3em color-mix(in srgb, var(--orange) 55%, transparent); } }
+@keyframes rl-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes rl-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.rl-pulse { animation: rl-pulse 1.6s ease-in-out infinite; }
+/* Entrada suave (no afecta a auto-animate ni a fragments) */
+.reveal .slides section.present:not([data-auto-animate]) > :is(h1, h2, h3, p, ul, ol, .rl-cards, .rl-vbars, .rl-rtrack):not(.fragment) { animation: rl-rise .6s ease both; }

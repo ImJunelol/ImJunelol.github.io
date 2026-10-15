@@ -1,0 +1,44 @@
+:root {
+    --bg: #ffffff;
+    --text: #1a1a1a;
+    --accent: #3b82f6;
+
+    /* Reveal.js theme variables */
+    --r-background: var(--bg);
+    --r-background-color: var(--bg);
+    --r-main-color: var(--text);
+    --r-heading-color: var(--text);
+    --r-link-color: var(--accent);
+}
+
+/* Dark values when the attribute is set */
+:root[data-theme="dark"] {
+    --bg: #121212;
+    --text: #eaeaea;
+    --accent: #60a5fa;
+}
+
+/* Apply the variables to the presentation */
+body,
+.reveal-viewport {
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+}
+
+.reveal {
+    color: var(--text);
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+    color: var(--text);
+}
+
+.reveal a {
+    color: var(--accent);
+}
