@@ -316,7 +316,24 @@
     <!--Reveal Itself-->
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
     <script src="scripts/initialize_reveal.js"></script>
-    <script src="scripts/theme_switch.js"></script>
+    <script">
+        Reveal.initialize({
+    //view : 'scroll',
+    jumpToSlide : true, 
+    hash: true,
+    slideNumber: true,
+    katex : {
+    version: "latest",
+    delimiters : [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true },
+    ]
+    },
+    plugins : [RevealHighlight, RevealNotes, RevealMarkdown, RevealZoom, RevealMath.KaTeX]
+});
+    </script>
     <!-- Cuenta animada de los números con data-count -->
     <script>
     addEventListener('load', () => {
